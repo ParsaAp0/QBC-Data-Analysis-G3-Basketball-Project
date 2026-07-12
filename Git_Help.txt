@@ -1,0 +1,176 @@
+===========================================================
+         GIT CHEAT SHEET - TEAM CLIENT WORKFLOW
+===========================================================
+
+This guide covers everything you need as a team member: 
+installing Git, authenticating with a token, cloning, 
+daily workflows (terminal + VS Code), and best practices.
+
+An youtube video that you can use: https://www.youtube.com/watch?v=8JJ101D3knE
+You can get help from LLMs for more information.
+
+-----------------------------------------------------------
+1. PREREQUISITES (ONE-TIME SETUP)
+-----------------------------------------------------------
+
+A. Install Git on your machine:
+   - Ubuntu/Debian      : sudo apt install git
+   - Arch Linux         : sudo pacman -S git
+   - Windows            : Download from https://git-scm.com
+
+B. Set your global username and email (for commits, optional, not recommended):
+   git config --global user.name "Your Full Name"
+   git config --global user.email "your.email@example.com"
+
+C. Authentication (Choose ONE method):
+   Option 1 (Recommended for security): SSH Key
+   - Generate a key: ssh-keygen -t ed25519 -C "your.email@example.com"
+   - Add the public key (~/.ssh/id_ed25519.pub) to GitHub.com 
+     (Settings -> SSH and GPG keys).
+
+   Option 2 (Simpler, using Token): Personal Access Token (Classic)
+   - Go to GitHub.com -> Settings -> Developer settings -> 
+     Personal access tokens -> Tokens (classic).
+   - Click "Generate new token (classic)".
+   - Give it a name, set an expiry, and select the "repo" scope.
+   - Click "Generate" and COPY THE TOKEN IMMEDIATELY (you won't see it again).
+   - You will use this TOKEN as your password when Git asks for it.
+
+-----------------------------------------------------------
+2. INITIAL CLONING (GET THE REPO ON YOUR PC)
+-----------------------------------------------------------
+
+Open your terminal (cmd, bash, or zsh) and navigate to the folder 
+where you want the project (e.g., cd ~/projects).
+
+Clone using HTTPS (you will enter your token as the password):
+   git clone https://github.com/username/repository-name.git
+
+Clone using SSH (if you set up SSH keys):
+   git clone git@github.com:username/repository-name.git
+
+Move into the project folder:
+   cd repository-name
+
+-----------------------------------------------------------
+3. DAILY WORKFLOW (USING THE TERMINAL / CONSOLE)
+-----------------------------------------------------------
+IMPORTANT RULE: NEVER commit directly to the "main" branch. 
+Always create a feature branch for your work.
+
+Step 1: Update your local "main" branch with the latest server changes
+   git checkout main
+   git pull origin main
+
+Step 2: Create a new branch for your specific task
+   git checkout -b feature/your-task-name
+   (Example: git checkout -b feature/fix-login-bug)
+
+Step 3: Do your coding work (edit files, add code, etc.)
+
+Step 4: Stage and commit your changes locally
+   git add .
+   git commit -m "Write a clear message describing your change"
+
+   (You can commit multiple times as you work. It is safe.)
+
+Step 5: (Optional but HIGHLY recommended) Merge main into your 
+         branch to avoid big conflicts later:
+   git checkout main
+   git pull origin main
+   git checkout feature/your-task-name
+   git merge main
+
+   (If you get merge conflicts, VS Code or your editor will help 
+    you resolve them. Fix the files, then run: git add . && git commit)
+
+Step 6: Push your branch to GitHub
+   git push origin feature/your-task-name
+
+Step 7: Create a Pull Request (PR) on GitHub.com
+   - Go to your repository on GitHub.
+   - Click "Compare & pull request" for your branch.
+   - Add a title and description, then click "Create pull request".
+   - Wait for a teammate to review and merge your code.
+
+-----------------------------------------------------------
+4. USING THE TOKEN WITH GIT (IMPORTANT!)
+-----------------------------------------------------------
+When you run commands like "git push", "git pull", or "git clone" 
+via HTTPS, Git will ask for your credentials.
+
+- Username: Enter your GitHub username.
+- Password: DO NOT enter your account password. 
+            PASTE the Personal Access Token you created earlier.
+
+Tip: To avoid typing the token every time, cache it for a while:
+   git config --global credential.helper cache
+   (This stores it in memory for ~15 minutes by default. 
+    You can set it longer, e.g., --timeout=3600 for 1 hour).
+
+-----------------------------------------------------------
+5. WORKING WITH VS CODE (EDITOR INTEGRATION)
+-----------------------------------------------------------
+
+A. Essential Extensions:
+   - "GitHub Pull Requests and Issues" (built-in but enable it).
+   - (Optional) "GitHub Repositories" for editing without cloning.
+
+B. Sign in to GitHub in VS Code:
+   - Click the Accounts icon (gear/person) in the bottom-left corner.
+   - Or click the GitHub icon in the Activity Bar on the left.
+   - Select "Sign In" and follow the browser prompts to authenticate.
+
+C. Common Tasks in VS Code (No Terminal Needed):
+   - Pull updates    : Click the Source Control icon (Ctrl+Shift+G) 
+                       -> Click the "..." (more actions) -> Pull.
+   - Create a branch : Click the branch name at the bottom-left status 
+                       bar -> "Create new branch".
+   - Commit changes  : Write a message in the Source Control input box 
+                       and click the "Commit" checkmark (✓).
+   - Push changes    : Click "Sync Changes" or "Push" in the Source 
+                       Control view.
+   - Create a PR     : Go to the GitHub Pull Requests view, click 
+                       "Create Pull Request", fill in the details.
+
+Detailed official documentation for VS Code:
+https://code.visualstudio.com/docs/sourcecontrol/github
+
+-----------------------------------------------------------
+6. QUICK REFERENCE - USEFUL COMMANDS
+-----------------------------------------------------------
+Check status of your files:
+   git status
+
+See your branch history:
+   git log --oneline
+
+Switch to an existing branch:
+   git checkout branch-name
+
+Delete a local branch (after merging):
+   git branch -d branch-name
+
+Discard changes in a specific file:
+   git checkout -- filename
+
+Undo the last commit (keep changes):
+   git reset --soft HEAD~1
+
+-----------------------------------------------------------
+7. GOLDEN RULES FOR TEAMWORK
+-----------------------------------------------------------
+- Always run "git pull" on the main branch before starting new work.
+- Write meaningful commit messages (e.g., "Fix: Resolve login timeout").
+- Keep your .gitignore updated (add node_modules, .env, __pycache__, etc.).
+- Never force push (git push --force) to the main branch unless you 
+  know exactly what you are doing.
+- If you get a "merge conflict", do not panic. Open the affected files, 
+  look for <<<<<<< and >>>>>>> markers, manually choose the code, 
+  save the file, then git add . && git commit.
+- If your token expires, simply generate a new one on GitHub.com and 
+  use it the next time you are prompted for a password.
+
+===========================================================
+                    END OF CHEAT SHEET
+===========================================================
