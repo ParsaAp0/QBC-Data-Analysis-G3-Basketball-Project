@@ -17,7 +17,7 @@ class Database:
     """
 
     def __init__(self) -> None:
-        connection_string = os.getenv("CONNECTION_STRING")
+        connection_string = os.getenv("CONNECTION_STRING", "sqlite:///basketball_reference.db")
 
         self.engine = create_engine(connection_string)
         self.session = Session(self.engine)

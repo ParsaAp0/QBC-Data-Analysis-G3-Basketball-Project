@@ -11,3 +11,4 @@ selenium
 openpyxl
 sqlalchemy
 python-dotenv
+nbdime
