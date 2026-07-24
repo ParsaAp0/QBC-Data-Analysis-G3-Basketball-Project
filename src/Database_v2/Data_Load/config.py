@@ -1,4 +1,4 @@
 DB_HOST = "localhost"
-DB_USER = ""
-DB_PASSWORD = ""
+DB_USER = "p"
+DB_PASSWORD = "p"
 DB_NAME = "basketball_db"

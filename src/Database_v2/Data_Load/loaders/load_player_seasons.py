@@ -9,7 +9,7 @@ SKIP_TEAM_ABBRS = {"2tm", "3tm", "4tm"}
 
 def get_experience_lookup():
 
-    df = pd.read_csv("data/final//players_data.csv")
+    df = pd.read_csv("data/CSVs/players_data.csv")
 
     lookup = {}
 
@@ -26,7 +26,7 @@ def load_player_seasons():
     print("Loading Player Season Stats ...")
     print("-------------------------------")
 
-    df = pd.read_csv("data/final/player_season_data.csv")
+    df = pd.read_csv("data/CSVs/player_season_data.csv")
 
     player_lookup = get_player_lookup()
 
