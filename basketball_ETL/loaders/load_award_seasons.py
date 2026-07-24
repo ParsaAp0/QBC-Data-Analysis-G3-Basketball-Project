@@ -10,7 +10,7 @@ def load_award_seasons():
     print("Loading Award Seasons ...")
     print("-------------------------------")
 
-    df = pd.read_csv("basketball_ETL/CSVs/award_season_data.csv")
+    df = pd.read_csv("data/final/award_season_data.csv")
 
     player_lookup = get_player_lookup()
 

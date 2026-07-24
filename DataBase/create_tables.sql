@@ -68,6 +68,8 @@ create table PlayerSeasonStats
 
     season varchar(20) not null,
 
+    position varchar(60) not null,
+
     experience int,
 
     games int,
@@ -138,9 +140,13 @@ create table TeamSeasonStats
 
     season varchar(20) not null,
 
+    games int,
+
     wins int,
 
     losses int,
+
+    `W/L%` float,
 
     standing int,
 
@@ -151,6 +157,84 @@ create table TeamSeasonStats
     conference_champion boolean,
 
     champion boolean,
+
+    MP float,
+
+    pace float,
+
+    relative_pace float,
+
+    ORtg float,
+
+    relative_ORtg float,
+
+    DRtg float,
+
+    relative_DRtg float,
+
+    `Pts/G` int,
+
+    `Opp Pts/G` float,
+
+    fg int,
+
+    fga int,
+
+    `fg%` float,
+
+    3p int,
+
+    3pa int,
+
+    `3p%` float,
+
+    2p int,
+
+    2pa int,
+
+    `2p%` float,
+
+    `eFG%` float,
+
+    ft int,
+
+    fta int,
+
+    `ft%` float,
+
+    `ft/fga` float,
+
+    orb int,
+
+    `orb%` float,
+
+    drb int,
+
+    `drb%` float,
+
+    trb int,
+
+    `trb/G` float,
+
+    ast int,
+
+    `ast/G` float,
+
+    stl int,
+
+    `stl/G` float,
+
+    blk int,
+
+    `blk/G` float,
+
+    tov int,
+
+    `tov/G` float,
+
+    fouls int,
+
+    `fouls/G` float,
 
     primary key(team_id,season),
 

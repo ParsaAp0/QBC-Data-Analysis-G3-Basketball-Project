@@ -8,7 +8,7 @@ def load_players():
 
     print("Loading Players...")
 
-    df = pd.read_csv("basketball_ETL/CSVs/players_data.csv")
+    df = pd.read_csv("data/final/players_data.csv")
 
     conn = get_connection()
 

@@ -8,7 +8,7 @@ def load_teams():
 
     print("Loading Teams...")
 
-    df = pd.read_csv("basketball_ETL/CSVs/teams_data.csv")
+    df = pd.read_csv("data/final/teams_data.csv")
 
     conn = get_connection()
 
