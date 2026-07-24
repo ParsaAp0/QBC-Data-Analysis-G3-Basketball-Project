@@ -1,182 +1,136 @@
 # Quera Data Analysis Bootcamp – Project 1 - Group 3 | NBA Data Analytics
 
-This repository contains the code, documentation, and analyses for the first project of the Quera Data Analysis Bootcamp. The main objectives are to scrape basketball data from `basketball-reference.com`, store it in a relational database, and perform statistical analyses to answer specific questions and test given hypotheses.
-
-The project is divided into three main phases:
-1.  **Web Scraping** (Data Extraction)
-2.  **Database Design & Storage**
-3.  **Statistical Analysis** (Descriptive stats & Hypothesis Testing)
+Repository for the first group project of the Quera Data Analysis Bootcamp. We scrape basketball-reference.com, store the data in a relational database (SQLite), and run the required statistical analyses.
 
 ---
 
-## 📁 Folder & File Structure
-(just a guess)
+## Directory Layout
+
+
 ```text
 QBC-Data-Analysis-G3-Basketball-Project/
 │
-├── README.md                         # This file – project overview and guide
-├── .gitignore                        # List of files/folders ignored by Git
-├── requirements.txt                  # Required Python libraries
-├── environment.yml                   # (Optional) Conda environment file
+├── README.md                         # Project overview and guide
+├── .gitignore                        # Files/folders ignored by Git
+├── .gitattributes                    # Git attributes
+├── Git_Help.txt                      # Useful Git commands
+├── Project-Description.pdf           # Project description (PDF)
+├── python-requirements.txt           # Python dependencies
 │
-├── docs/                             # Project documentation
-│   ├── database_design.md            # Database design, ER diagram, tables, and relationships
-│   ├── statistical_plan.md           # Hypotheses, custom metrics, and chosen statistical tests
-│   └── presentation/                 # Final presentation files (slides, posters, data story)
+├── data/
+│   ├── CSVs/                         # CSV format data
+│   └── URLs/                         # URL lists for scraping
 │
-├── src/                              # Main source code (all Python code)
-│   ├── __init__.py
+├── src/                              # Main source code
+│   ├── Database_v2/                  # Current database implementation (Phase 2)
+│   |   ├── create_database.sql       # Create the database schema
+│   |   ├── create_tables.sql         # Create all tables
+│   |   ├── indexes.sql               # Index definitions
+│   |   └── Data_Load/                # ETL scripts to load CSV data into DB
+│   |   |   ├── config.py             # Configuration (DB connection, paths)
+│   |   |   ├── database.py           # Database connection utilities
+│   |   |   ├── utils.py              # Helper functions for data cleaning
+│   |   |   ├── main.py               # Main orchestration script
+│   |   |   ├── loaders/              # Individual loaders per entity
 │   │
-│   ├── scraping/                     # Phase 1: Web scraping
-│   │   ├── __init__.py
-│   │   ├── config.py                 # Scraping settings (base URLs, headers, timeouts)
-│   │   ├── scraper.py                # Core HTML fetching logic (requests, response handling)
-│   │   ├── parsers.py                # HTML parsers (extract players, teams, games data)
-│   │   └── data_cleaner.py           # Initial cleaning (data type conversion, handling missing values)
+│   ├── scraping/                     # Phase 1: Web scraping (Jupyter notebooks)
 │   │
-│   ├── database/                     # Phase 2: Database design, connection, and storage
-│   │   ├── __init__.py
-│   │   ├── models.py                 # SQLAlchemy ORM models (Player, Team, League, Game)
-│   │   ├── db_connection.py          # Create engine and session management
-│   │   ├── init_db.py                # Script to create all tables (CREATE TABLES)
-│   │   ├── insert_data.py            # Load scraped data into the database
-│   │   └── queries.py                # Predefined SQL queries for analysis (e.g., top 50 players per season)
+│   ├── analysis/                     # Phase 3: Statistical analysis (SQL queries)
+│   │   ├── Queries/                  # All SQL queries
+│   │   │   ├── Additional_Queries/   # Extra queries beyond the main tasks
+│   │   │   │   ├── Questions/        # Ad‑hoc analytical questions (Q1‑Q4)
+│   │   │   │   └── Tasks/            # Extra tasks (numbered extra*.sql)
+│   │   │   ├── Hypotheses/            # Hypotheses queries
+│   │   │   └── Tasks/                 # Tasks
 │   │
-│   ├── analysis/                     # Phase 3: Statistical analysis & visualization
-│   │   ├── __init__.py
-│   │   ├── descriptive_stats.py      # Compute descriptive stats (distributions, means, medians, boxplots)
-│   │   ├── hypothesis_tests.py       # Implement hypothesis tests (t-tests, ANOVA, etc.) for the two hypotheses
-│   │   ├── metrics.py                # Custom metric definitions (e.g., agility = height/weight, innate ability = experience/age)
-│   │   ├── visualizations.py         # Plotting functions (histograms, boxplots, scatter plots)
-│   │   └── report_generator.py       # Generate final summary tables and save figures
-│   │
-│   └── utils/                        # Shared utility tools
-│       ├── __init__.py
-│       ├── logger.py                 # Logging configuration (save errors and events)
-│       └── helpers.py                # General helper functions (file I/O, date formatting, etc.)
-│
-├── data/                             # Raw and processed data (this folder is gitignored)
-│   ├── raw/                          # Raw scraped data (JSON/CSV) before DB insertion
-│   └── processed/                    # Final output data for analysis (exported CSVs)
-│
-├── tests/                            # Automated tests (optional but recommended)
-│   ├── test_scraper.py               # Tests for scraping functions
-│   ├── test_models.py                # Tests for database models and relationships
-│   └── test_analysis.py              # Tests for statistical calculations and metrics
-│
-├── scripts/                          # One-off or helper scripts
-│   ├── reset_database.py             # Reset the database (drop and recreate all tables)
-│   └── export_for_analysis.py        # Export data from DB to CSV for notebook analysis
-│
-└── notebooks/                        # Jupyter notebooks for exploration and presentation
-    ├── 01_exploratory_analysis.ipynb # Initial data exploration
-    ├── 02_descriptive_stats.ipynb    # Descriptive statistics and required plots
-    └── 03_hypothesis_testing.ipynb   # Hypothesis testing and result interpretation
+│   └── database_v1/                  # Legacy/earlier database implementation
+│   |   ├── models.py                 # SQLAlchemy ORM models
+│   |   ├── db_connection.py          # Database engine and session
+│   |   ├── insert_data.py            # Load data into DB (old version)
+│   |   ├── basketball_reference.db   # SQLite database file (v1)
+│   |   └── Diagram.drawio            # ER diagram (Draw.io source)
 ```
+---
+
+## Components
+
+### 1. Data (`data/`)
+
+This folder contains all the data used in the project, split into two subfolders:
+
+- **`CSVs/`** – Contains the final cleaned data in CSV format. These files are the output of the scraping notebooks and the input for the ETL pipeline:
+  - `players_data.csv` – Player biographical information (name, height, weight, birthdate, etc.)
+  - `teams_data.csv` – Team metadata (franchise, conference, division, etc.)
+  - `awards.csv` – Award names and descriptions
+  - `player_season_data.csv` – Per-season player statistics (points, rebounds, assists, etc.)
+  - `team_season_data.csv` – Per-season team statistics
+  - `award_season_data.csv` – Awards won by players per season
+
+- **`URLs/`** – Contains text files with URL lists used during the scraping process. These act as a crawl index for the notebooks to systematically navigate the website.
 
 ---
 
-## 🧩 Detailed Description of Each File and Folder
+### 2. Web Scraping (`src/scraping/`)
 
-### **Root Files**
+Six Jupyter notebooks handle the extraction process. They run in a specific order:
 
-| File | Description |
-| :--- | :--- |
-| **`README.md`** | This file. Contains the overall description, structure, and setup guide for the project. |
-| **`.gitignore`** | Files that should not be committed (e.g., `__pycache__/`, `.env`, `data/`, `*.db`). **Must be created before the first commit.** |
-| **`requirements.txt`** | Lists all Python libraries with exact versions. Install them all at once using `pip install -r requirements.txt`. |
-| **`environment.yml`** | (Optional) If you are using Conda, this file replaces `requirements.txt`. |
+1. **`find_players_and_teams_url.ipynb`** – First step. Collects all player and team page URLs and saves them to `data/URLs/`.
+2. **`find_players_info.ipynb`** – Uses the player URLs to scrape biographical data (height, weight, birth year, college, etc.).
+3. **`find_team_info.ipynb`** – Uses team URLs to scrape franchise metadata.
+4. **`find_player_season_info.ipynb`** – Scrapes season-by-season stats for every player.
+5. **`find_team_season_info.ipynb`** – Scrapes season-by-season stats for every team.
+6. **`find_awards_info.ipynb`** – Scrapes award/achievement data.
 
----
-
-### **`docs/` Folder (Documentation)**
-
-All textual documentation and team decisions are stored here. This section is crucial for the final presentation.
-
-| File/Folder | Description |
-| :--- | :--- |
-| **`database_design.md`** | Contains the ER diagram, normalized tables, explanations of relationships (primary/foreign keys), and the reasoning behind the chosen structure. |
-| **`statistical_plan.md`** | Defines the custom metrics (agility, innate ability), formulates null and alternative hypotheses, and justifies the selected statistical tests for each hypothesis. |
-| **`presentation/`** | Stores the final presentation files (PowerPoint, PDF, or data storytelling documents). |
+All scraping configurations (headers, delays, timeout settings) are stored in `config.json`.
 
 ---
 
-### **`src/` Folder (Main Source Code)**
+### 3. Database (`src/Database_v2/`)
 
-This folder contains all executable code, organized according to the project's three phases.
+This is the current database implementation, using **MySQL** as the relational database management system. It consists of:
 
-#### **`src/scraping/` (Phase 1 – Web Scraping)**
-| File | Description |
-| :--- | :--- |
-| **`config.py`** | Defines constants like `BASE_URL`, `USER_AGENT`, and delays between requests to respect the website's terms of service. |
-| **`scraper.py`** | Contains the core `fetch_page(url)` function to retrieve HTML content and handle network errors. |
-| **`parsers.py`** | Includes parsing functions (e.g., `parse_player_row(row)`) that transform raw HTML into structured Python dictionaries. |
-| **`data_cleaner.py`** | Provides functions for standardizing strings (e.g., converting height from "6-6" to centimeters) and handling missing or null values. |
+- **Schema definition files** (`.sql`):
+  - `create_database.sql` – Creates the database (e.g., `CREATE DATABASE IF NOT EXISTS nba_data;`).
+  - `create_tables.sql` – Defines all tables and their relationships (primary keys, foreign keys, data types).
+  - `indexes.sql` – Creates indexes for performance optimization on frequently queried columns.
 
-#### **`src/database/` (Phase 2 – Database & Storage)**
-| File | Description |
-| :--- | :--- |
-| **`models.py`** | Defines SQLAlchemy classes (e.g., `class Player(Base):`). All entities (Player, Team, League, Game) and their relationships are defined here. |
-| **`db_connection.py`** | Creates the database engine (for SQLite, PostgreSQL, etc.) and manages session lifecycles. |
-| **`init_db.py`** | Running this script creates all tables in the database based on the defined models (`Base.metadata.create_all(engine)`). |
-| **`insert_data.py`** | Takes the scraped data, converts it into ORM objects, and saves them into the database using sessions. |
-| **`queries.py`** | Contains reusable parameterized queries (e.g., `get_top_scorers(season, limit)`) to fetch data for the analysis phase. |
+- **ETL Pipeline** (`Data_Load/`):
+  - `main.py` – Orchestrates the entire loading process. Run this script to populate the database.
+  - `config.py` – Stores MySQL connection parameters (host, user, password, database name) and file paths.
+  - `database.py` – Utilities for connecting to MySQL and managing transactions using `mysql-connector-python` or `PyMySQL`.
+  - `utils.py` – Helper functions for data cleaning, type conversion, and validation.
+  - `loaders/` – One Python module per entity. Each loader reads its corresponding CSV file, processes the data, and inserts it into the database.
+  - `lookups.py` – Helper functions that map names to IDs (e.g., finding a player's ID by name) to maintain referential integrity.
 
-#### **`src/analysis/` (Phase 3 – Statistical Analysis)**
-| File | Description |
-| :--- | :--- |
-| **`descriptive_stats.py`** | Computes descriptive statistics (distributions, means, medians, boxplots) for the requested features (height, experience). |
-| **`hypothesis_tests.py`** | Implements the statistical tests (t-tests, Mann-Whitney U, etc.) for the two given hypotheses. |
-| **`metrics.py`** | Centralizes the custom metric logic (e.g., agility = height/weight, innate ability = experience/age) to ensure consistency. |
-| **`visualizations.py`** | Contains plotting functions (histograms, boxplots, scatter plots) using libraries like Matplotlib or Seaborn. |
-| **`report_generator.py`** | Aggregates results, creates summary tables, and saves figures to the `data/processed/` folder or `docs/presentation/`. |
+The ETL pipeline is designed to be run as a single command (`python main.py`) and handles the entire data population process.
+---
 
-#### **`src/utils/` (Shared Utilities)**
-| File | Description |
-| :--- | :--- |
-| **`logger.py`** | Configures logging to record errors, warnings, and key events during execution. |
-| **`helpers.py`** | Contains generic helper functions, such as file saving/loading, date formatting, and path management. |
+### 4. Analysis (`src/analysis/Queries/`)
+
+This folder contains all SQL queries used for analysis. They are organized into three subfolders:
+
+- **`Tasks/`** – The five project tasks (`task1.sql` – `task5.sql`).
+
+- **`Additional_Queries/Questions/`** – Contains four ad-hoc analytical questions (Q1-Q4) that explore the data beyond the main requirements.
+
+- **`Additional_Queries/Tasks/`** – Extra numbered tasks (`extra*.sql`). These are likely additional exercises or challenge questions that go beyond the core project.
+
+- **`Hypotheses/`** – Reserved for queries specifically related to hypothesis testing. This would contain the SQL needed to extract data for statistical tests.
+
+The queries can be run directly against the populated SQLite database using any SQL client or from the command line.
 
 ---
 
-### **Other Folders**
+### 5. Legacy Code (`src/database_v1/`)
 
-| Folder | Description |
-| :--- | :--- |
-| **`data/`** | **Ignored by Git.** Used to store scraped raw data and processed output files. Keeps the repository lightweight. |
-| **`tests/`** | (Optional) Contains unit tests to validate the logic of scraping, models, and analysis functions. Recommended for robust code. |
-| **`scripts/`** | Contains utility scripts. For example, `reset_database.py` drops and recreates all tables, and `export_for_analysis.py` exports data to CSV for use in notebooks. |
-| **`notebooks/`** | Jupyter notebooks for interactive exploration, prototyping, and creating the final data story. Keep them well-documented and sequential. |
+This is an older version of the database implementation kept for reference. It uses SQLAlchemy ORM instead of raw SQL and has a different loading approach. Key files:
 
----
+- `models.py` – SQLAlchemy ORM classes defining the database schema.
+- `db_connection.py` – Manages the SQLite engine and sessions.
+- `insert_data.py` – The original data loading script (now replaced by the `Database_v2` ETL pipeline).
+- `basketball_reference.db` – The SQLite database file generated by v1.
+- `Diagram.drawio` – An Entity-Relationship diagram (editable with draw.io) showing the database structure.
 
-## 🚀 Getting Started (Cloning the Repository)
-
-### For Collaborators (with write access)
-
-If you have been added as a collaborator to this repository, you can clone it using either SSH or HTTPS:
-
-**Option 1: SSH (recommended if you've set up SSH keys)**
-```bash
-git clone git@github.com:owner-username/basketball-analytics-project.git
-cd basketball-analytics-project
-```
-
-**Option 2: HTTPS (works without SSH setup)**
-```bash
-git clone https://github.com/owner-username/basketball-analytics-project.git
-cd basketball-analytics-project
-```
-
-> **Note:** Replace `owner-username` with the actual GitHub username or organization name that owns the repository.
+**Note:** `database_v1` is not used in the current workflow. All new work should target `Database_v2/`.
 
 ---
-
-### For Read-Only Access (viewers, non-collaborators)
-
-If you only need to view or download the code (without pushing changes), use:
-
-```bash
-git clone https://github.com/owner-username/basketball-analytics-project.git
-cd basketball-analytics-project
-```

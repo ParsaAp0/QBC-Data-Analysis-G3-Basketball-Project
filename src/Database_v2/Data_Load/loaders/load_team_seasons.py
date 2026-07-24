@@ -10,7 +10,7 @@ def load_team_seasons():
     print("Loading Team Season Stats ...")
     print("-------------------------------")
 
-    df = pd.read_csv("data/final/team_season_data.csv")
+    df = pd.read_csv("data/CSVs/team_season_data.csv")
 
     team_lookup = get_team_lookup()
 

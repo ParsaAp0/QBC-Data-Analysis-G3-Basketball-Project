@@ -8,7 +8,7 @@ def load_awards():
 
     print("Loading Awards...")
 
-    df = pd.read_csv("data/final/awards.csv")
+    df = pd.read_csv("data/CSVs/awards.csv")
 
     conn = get_connection()
 
