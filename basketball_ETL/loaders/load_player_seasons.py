@@ -7,14 +7,6 @@ from loaders.lookups import get_player_lookup, get_team_lookup
 # multi-team entries in CSV — skip these rows
 SKIP_TEAM_ABBRS = {"2tm", "3tm", "4tm"}
 
-position_map = {
-    "PG": "Point Guard",
-    "SG": "Shooting Guard",
-    "SF": "Small Forward",
-    "PF": "Power Forward",
-    "C": "Center"
-}
-
 def get_experience_lookup():
 
     df = pd.read_csv("data/final//players_data.csv")
@@ -141,7 +133,7 @@ def load_player_seasons():
 
             clean(row["Season"]),
 
-            clean(position_map[row["Position"]]),
+            clean(row["Position"]),
 
             experience,
 
