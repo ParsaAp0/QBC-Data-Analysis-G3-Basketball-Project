@@ -2,6 +2,14 @@
 
 Repository for the first group project of the Quera Data Analysis Bootcamp. We scrape basketball-reference.com, store the data in a relational database (SQLite), and run the required statistical analyses.
 
+## Team Members
+
+- **Sajjad Moghayad**
+- **Arash Tahamtan**
+- **Morteza Eshghi**
+- **Parsa Adlparvar**
+- **Amirreza Abbasi**
+
 ---
 
 ## Directory Layout
