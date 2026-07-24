@@ -92,9 +92,6 @@ LIMIT 15;
 df = run_query(query)
 
 #%%
-import plotly.express as px
-import plotly.io as pio
-
 pio.renderers.default = "browser"
 
 fig = px.scatter(

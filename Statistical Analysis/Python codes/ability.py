@@ -87,23 +87,17 @@ new = df[df["Season"].isin(
     ["2022-2023","2023-2024"]
 )]["InnateAbility"]
 #%%
-summary = (
-    df.groupby("Season")["InnateAbility"]
-      .agg(["count","mean","median","std","min","max"])
-)
+summary = (df.groupby("Season")["InnateAbility"]
+      .agg(["count","mean","median","std","min","max"]))
 
 print(summary)
 #%%
 print("Old Mean :", old.mean())
 print("New Mean :", new.mean())
 #%%
-
-from scipy.stats import shapiro
-
 for name, sample in [
     ("2020-2022", old),
-    ("2022-2024", new)
-]:
+    ("2022-2024", new)]:
     stat, p = shapiro(sample)
 
     print(f"\n{name}")
@@ -116,13 +110,11 @@ for name, sample in [
         print("Distribution is not normal.")
 
 #%%
-from scipy.stats import ttest_ind
 
 t_stat, p = ttest_ind(
     old,
     new,
-    equal_var=False   
-)
+    equal_var=False   )
 
 print("t =", t_stat)
 print("p =", p)
@@ -132,7 +124,7 @@ import numpy as np
 n1 = len(old)
 n2 = len(new)
 
-z = (u - n1*n2/2) / np.sqrt(n1*n2*(n1+n2+1)/12)
+z = (t_stat - n1*n2/2) / np.sqrt(n1*n2*(n1+n2+1)/12)
 
 r = abs(z) / np.sqrt(n1+n2)
 
@@ -140,9 +132,6 @@ print("Effect size (r) =", r)
 
 
 #%%
-import plotly.express as px
-import plotly.io as pio
-
 pio.renderers.default = "browser"
 
 plot_df = df[

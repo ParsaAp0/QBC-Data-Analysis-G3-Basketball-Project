@@ -108,8 +108,7 @@ ORDER BY
 #%%
 df = run_query(query)
 #%%
-height_summary = (
-    df.groupby(["Season", "PlayerGroup"])["height"]
+height_summary = (df.groupby(["Season", "PlayerGroup"])["height"]
       .agg(
           Count="count",
           Mean="mean",
@@ -124,8 +123,7 @@ height_summary = (
 
 print(height_summary)
 #%%
-experience_summary = (
-    df.groupby(["Season", "PlayerGroup"])["experience"]
+experience_summary = (df.groupby(["Season", "PlayerGroup"])["experience"]
       .agg(
           Count="count",
           Mean="mean",
@@ -184,8 +182,6 @@ experience["Percentage"] = (
     .transform(lambda x: 100*x/x.sum())
 )
 #%%
-import plotly.express as px
-
 color_map = {
     "Champion Team": "#D4AF37",
     "Top 15": "#1F4E79"
@@ -227,8 +223,6 @@ for season in sorted(df["Season"].unique()):
 
     fig.show()
 #%%
-import plotly.express as px
-
 color_map = {
     "Champion Team": "#D4AF37",
     "Top 15": "#1F4E79"

@@ -58,23 +58,17 @@ WHERE p.player_id IN (SELECT player_id FROM Top50Players);
 df = run_query(query)
 #%%
 #Report
-summary = (
-    df.groupby("PlayerGroup")
-    ["height"]
+summary = (df.groupby("PlayerGroup")["height"]
     .agg(["mean","median","std"])
     .reset_index())
 
-summary
+print(summary)
 #%%
-import plotly.express as px
-import plotly.io as pio
-
 pio.renderers.default = "browser"
 
 color_map = {
     "Michael Jordan Trophy": "#D4AF37",
-    "Top 50 Players": "#1F4E79"
-}
+    "Top 50 Players": "#1F4E79"}
 
 fig = px.violin(
     df,
@@ -84,16 +78,11 @@ fig = px.violin(
     color_discrete_map=color_map,
     box=True,
     points="all",
-    title="Height Distribution of Elite NBA Players",
-)
+    title="Height Distribution of Elite NBA Players")
 
 fig.update_traces(
     meanline_visible=True,
-    marker=dict(
-        size=7,
-        opacity=0.65
-    )
-)
+    marker=dict(size=7, opacity=0.65))
 
 fig.update_layout(
     template="plotly_white",
