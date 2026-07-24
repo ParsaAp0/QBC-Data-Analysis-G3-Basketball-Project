@@ -102,7 +102,6 @@ This is the current database implementation, using **MySQL** as the relational d
   - `loaders/` – One Python module per entity. Each loader reads its corresponding CSV file, processes the data, and inserts it into the database.
   - `lookups.py` – Helper functions that map names to IDs (e.g., finding a player's ID by name) to maintain referential integrity.
 
-The ETL pipeline is designed to be run as a single command (`python main.py`) and handles the entire data population process.
 ---
 
 ### 4. Analysis (`src/analysis/Queries/`)
