@@ -1,6 +1,6 @@
 # Quera Data Analysis Bootcamp – Project 1 - Group 3 | NBA Data Analytics
 
-Repository for the first group project of the Quera Data Analysis Bootcamp. We scrape basketball-reference.com, store the data in a relational database (SQLite), and run the required statistical analyses.
+Repository for the group project of the Quera Data Analysis Bootcamp. We scrape basketball-reference.com, store the data in a relational database (MySQL), and run the required statistical analyses.
 
 ## Team Members
 
