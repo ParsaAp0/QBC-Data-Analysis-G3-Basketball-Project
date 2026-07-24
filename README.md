@@ -18,22 +18,8 @@ QBC-Data-Analysis-G3-Basketball-Project/
 ├── python-requirements.txt           # Python dependencies
 │
 ├── data/
-│   ├── CSVs/                         # CSV format data 
-│   │   ├── award_season_data.csv
-│   │   ├── player_season_data.csv
-│   │   ├── teams_data.csv
-│   │   ├── awards.csv
-│   │   ├── team_season_data.csv
-│   │   └── players_data.csv
+│   ├── CSVs/                         # CSV format data
 │   └── URLs/                         # URL lists for scraping
-│   │   ├── teams_url2.txt
-│   │   ├── awards_url.txt
-│   │   ├── teams_url.txt
-│   │   ├── NBA_Leagues.txt
-│   │   ├── NBA_advanced.txt
-│   │   ├── NBA_per_game.txt
-│   │   ├── playoffs_url.txt
-│   │   └── players_url.txt
 │
 ├── src/                              # Main source code
 │   ├── Database_v2/                  # Current database implementation (Phase 2)
@@ -46,52 +32,16 @@ QBC-Data-Analysis-G3-Basketball-Project/
 │   |   |   ├── utils.py              # Helper functions for data cleaning
 │   |   |   ├── main.py               # Main orchestration script
 │   |   |   ├── loaders/              # Individual loaders per entity
-│   |   |   │   ├── load_award_seasons.py
-│   |   |   │   ├── load_awards.py
-│   |   |   │   ├── load_players.py
-│   |   |   │   ├── load_player_seasons.py
-│   |   |   │   ├── load_teams.py
-│   |   |   │   ├── load_team_seasons.py
-│   |   |   │   └── lookups.py
 │   │
 │   ├── scraping/                     # Phase 1: Web scraping (Jupyter notebooks)
-│   │   ├── config.json               # Scraping settings (headers, delays, etc.)
-│   │   ├── find_players_info.ipynb   # Scrape player biographical data
-│   │   ├── find_team_info.ipynb      # Scrape team information
-│   │   ├── find_awards_info.ipynb    # Scrape award data
-│   │   ├── find_players_and_teams_url.ipynb # Collect player/team URL lists
-│   │   ├── find_player_season_info.ipynb   # Scrape player season stats
-│   │   └── find_team_season_info.ipynb     # Scrape team season stats
 │   │
 │   ├── analysis/                     # Phase 3: Statistical analysis (SQL queries)
 │   │   ├── Queries/                  # All SQL queries
 │   │   │   ├── Additional_Queries/   # Extra queries beyond the main tasks
 │   │   │   │   ├── Questions/        # Ad‑hoc analytical questions (Q1‑Q4)
-│   │   │   │   │   ├── Q1.sql
-│   │   │   │   │   ├── Q2.sql
-│   │   │   │   │   ├── Q3.sql
-│   │   │   │   │   └── Q4.sql
 │   │   │   │   └── Tasks/            # Extra tasks (numbered extra*.sql)
-│   │   │   │   |   ├── extra4.sql
-│   │   │   │   |   ├── extra8.sql
-│   │   │   │   |   ├── extra9.sql
-│   │   │   │   |   ├── extra10.sql
-│   │   │   │   |   ├── extra11.sql
-│   │   │   │   |   ├── extra15.sql
-│   │   │   │   |   ├── extra16.sql
-│   │   │   │   |   ├── extra17.sql
-│   │   │   │   |   ├── extra18.sql
-│   │   │   │   |   ├── extra19.sql
-│   │   │   │   |   ├── extra20.sql
-│   │   │   │   |   └── extra21.sql
 │   │   │   ├── Hypotheses/            # Hypotheses queries
-
 │   │   │   └── Tasks/                 # Tasks
-│   │   │   |   ├── task1.sql
-│   │   │   |   ├── task2.sql
-│   │   │   |   ├── task3.sql
-│   │   │   |   ├── task4.sql
-│   │   │   |   └── task5.sql
 │   │
 │   └── database_v1/                  # Legacy/earlier database implementation
 │   |   ├── models.py                 # SQLAlchemy ORM models
