@@ -31,19 +31,20 @@ QBC-Data-Analysis-G3-Basketball-Project/
 │   |   |   ├── database.py           # Database connection utilities
 │   |   |   ├── utils.py              # Helper functions for data cleaning
 │   |   |   ├── main.py               # Main orchestration script
-│   |   |   ├── loaders/              # Individual loaders per entity
+│   |   |   └── loaders/              # Individual loaders per entity
 │   │
 │   ├── scraping/                     # Phase 1: Web scraping (Jupyter notebooks)
 │   │
 │   ├── analysis/                     # Phase 3: Statistical analysis (SQL queries)
-│   │   ├── Queries/                  # All SQL queries
+│   │   ├── Queries/                  # Almost all SQL queries
 │   │   │   ├── Additional_Queries/   # Extra queries beyond the main tasks
 │   │   │   │   ├── Questions/        # Ad‑hoc analytical questions (Q1‑Q4)
 │   │   │   │   └── Tasks/            # Extra tasks (numbered extra*.sql)
-│   │   │   ├── Hypotheses/            # Hypotheses queries
-│   │   │   └── Tasks/                 # Tasks
+│   │   │   ├── Hypotheses/           # Hypotheses queries
+│   │   │   └── Tasks/                # Tasks
+│   │   └── Python Codes/             # Python codes for analysis (and few queries)
 │   │
-│   └── database_v1/                  # Legacy/earlier database implementation
+│   ├── database_v1/                  # Legacy/earlier database implementation
 │   |   ├── models.py                 # SQLAlchemy ORM models
 │   |   ├── db_connection.py          # Database engine and session
 │   |   ├── insert_data.py            # Load data into DB (old version)
@@ -116,7 +117,9 @@ This folder contains all SQL queries used for analysis. They are organized into 
 
 - **`Hypotheses/`** – Reserved for queries specifically related to hypothesis testing. This would contain the SQL needed to extract data for statistical tests.
 
-The queries can be run directly against the populated SQLite database using any SQL client or from the command line.
+- **`Python Codes/`** – Conducting hypothesis tests and creating graphs and charts.
+
+The queries can be run directly against the populated MySQL database using any SQL client or from the command line.
 
 ---
 
