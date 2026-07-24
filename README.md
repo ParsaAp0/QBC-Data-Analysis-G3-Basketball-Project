@@ -25,6 +25,7 @@ QBC-Data-Analysis-G3-Basketball-Project/
 ├── .gitattributes                    # Git attributes
 ├── Git_Help.txt                      # Useful Git commands
 ├── Project-Description.pdf           # Project description (PDF)
+├── NBA_Statistical_Report.pdf        # Project Final Report (PDF)
 ├── python-requirements.txt           # Python dependencies
 │
 ├── data/
